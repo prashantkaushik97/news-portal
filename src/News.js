@@ -9,7 +9,7 @@ function News() {
     const apiKey = "262ca29f445840a596e6301fc64290dd"
     const [country, setcountry] = useState("")
     const [category, setcategory] = useState("")
-    const [keyword, setkeyword] = useState("")
+    const [keyword, setkeyword] = useState("India")
     const [flag, setflag] = useState(false)
     const [responseArray, setresponseArray] = useState([])
     const categories = [
@@ -108,7 +108,6 @@ function News() {
                         <Grid item xs={12} sm={6} md={3} key={index}>
                             <NewsCard title={news.title} description={news.description} author={news.author} url={news.url} urlToImage={news.urlToImage} />
                         </Grid>
-
                     ))
                     }
                 </Grid>
