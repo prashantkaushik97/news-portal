@@ -6,6 +6,7 @@ import { Grid } from '@material-ui/core';
 
 import './Style.css'
 function News() {
+    const apiKey = "262ca29f445840a596e6301fc64290dd"
     const [country, setcountry] = useState("")
     const [category, setcategory] = useState("")
     const [keyword, setkeyword] = useState("")
@@ -57,15 +58,14 @@ function News() {
     useEffect(() => {
         setresponseArray([])
 
-        axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=be34dea09f574b5d84a1b9a5e5f79278`).then((res) => {
-            console.log("Calling api with ", `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=be34dea09f574b5d84a1b9a5e5f79278`)
+        axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}`).then((res) => {
             setresponseArray(responseArray => [...responseArray, res.data.articles])
         })
     }, [category])
     useEffect(() => {
         setresponseArray([])
 
-        axios.get(`https://newsapi.org/v2/everything?q=${keyword}&apiKey=be34dea09f574b5d84a1b9a5e5f79278`).then((res) => {
+        axios.get(`https://newsapi.org/v2/everything?q=${keyword}&apiKey=${apiKey}`).then((res) => {
             setresponseArray(responseArray => [...responseArray, res.data.articles])
 
         })
@@ -81,7 +81,7 @@ function News() {
                 <div className='header__search'>
                     <form onSubmit={handleSubmit}>
 
-                        <input onChange={e => { setkeyword(e.target.value) }} type="text" placeholder="Search news by keywords"></input>
+                        <input className='header__searchinput' onChange={e => { setkeyword(e.target.value) }} type="text" placeholder="Search news by keywords"></input>
                         <input type='submit' value='Go' className='header__searchButton'  ></input>
                     </form>
 
@@ -106,7 +106,7 @@ function News() {
                 >
                     {responseArray[0]?.map((news, index) => (
                         <Grid item xs={12} sm={6} md={3} key={index}>
-                            <NewsCard title={news.title} description={news.description} author={news.author} urlToImage={news.urlToImage} />
+                            <NewsCard title={news.title} description={news.description} author={news.author} url={news.url} urlToImage={news.urlToImage} />
                         </Grid>
 
                     ))

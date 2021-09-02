@@ -13,14 +13,15 @@
 }
 .header__searchButton {
   margin-left: 5px;
-  padding: 10px 10px;
+  padding: 12px 12px;
+  border-radius: 5px;
 }
 .news__card {
   display: flex;
   flex-direction: ro;
   height: 200px;
 }
-.header__search > input {
+.header__searchinput {
   width: 200px;
   height: 40px;
   border-radius: 5px;

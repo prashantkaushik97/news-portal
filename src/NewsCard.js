@@ -1,6 +1,6 @@
 import { Card, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
+import { Link } from 'react-router-dom'
 import React from 'react'
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -16,7 +16,7 @@ const useStyles = makeStyles({
         height: 240,
     },
 });
-function NewsCard({ title, description, author, urlToImage, publishedAt }) {
+function NewsCard({ title, description, author, urlToImage, url }) {
     const classes = useStyles();
 
     return (
@@ -41,7 +41,7 @@ function NewsCard({ title, description, author, urlToImage, publishedAt }) {
                     {author}
                 </Typography>
 
-                <Button size="small" color="primary">
+                <Button href={url} size="small" color="primary">
                     Learn More
                 </Button>
             </CardActions>
