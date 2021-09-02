@@ -1,0 +1,109 @@
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import NewsCard from './NewsCard'
+import Select from 'react-select'
+
+import './Style.css'
+function News() {
+    const [country, setcountry] = useState("")
+    const [category, setcategory] = useState("")
+    const [keyword, setkeyword] = useState("")
+    const [flag, setflag] = useState(false)
+    const [responseArray, setresponseArray] = useState([])
+    const categories = [
+        { value: 'business', label: 'Business' },
+        { value: 'entertainment', label: 'Entertainment' },
+        { value: 'general', label: 'General' },
+        { value: 'health', label: 'Health' },
+        { value: 'science', label: 'Science' },
+        { value: 'sports', label: 'Sports' },
+        { value: 'technology', label: 'Technology' }
+
+    ]
+    const countries = [
+        { value: 'ae', label: 'UAE' },
+        { value: 'ar', label: 'Argentina' },
+        { value: 'at', label: 'Austria' },
+        { value: 'au', label: 'Australia' },
+        { value: 'be', label: 'Belgium' },
+        { value: 'bg', label: 'Bulgaria' },
+        { value: 'br', label: 'Brazil' },
+        { value: 'ca', label: 'Canada' },
+        { value: 'cn', label: 'China' },
+        { value: 'co', label: 'Colombia' },
+        { value: 'cu', label: 'Cuba' },
+        { value: 'cz', label: 'Czech Republic' },
+        { value: 'de', label: 'Denmark' },
+        { value: 'eg', label: 'Egypt' },
+        { value: 'fr', label: 'France' },
+        { value: 'gr', label: 'Greece' },
+        { value: 'hk', label: 'Hong Kong' },
+        { value: 'hu', label: 'Hungary' },
+        { value: 'id', label: 'Indonesia' },
+        { value: 'ie', label: 'Ireland' },
+        { value: 'in', label: 'India' },
+        { value: 'jp', label: 'Japan' },
+        { value: 'kr', label: 'Korea' },
+        { value: 'mx', label: 'Mexico' },
+        { value: 'us', label: 'United States of America' },
+        { value: 'ua', label: 'Ukraine' }
+
+    ]
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        setflag(!flag)
+    }
+    useEffect(() => {
+        setresponseArray([])
+
+        axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=be34dea09f574b5d84a1b9a5e5f79278`).then((res) => {
+            console.log("Calling api with ", `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=be34dea09f574b5d84a1b9a5e5f79278`)
+            setresponseArray(responseArray => [...responseArray, res.data.articles])
+        })
+    }, [category])
+    useEffect(() => {
+        setresponseArray([])
+
+        axios.get(`https://newsapi.org/v2/everything?q=${keyword}&apiKey=be34dea09f574b5d84a1b9a5e5f79278`).then((res) => {
+            setresponseArray(responseArray => [...responseArray, res.data.articles])
+
+        })
+    }, [flag])
+    return (
+
+        < div className="news" >
+            {console.log(responseArray)}
+            <div className='header'>
+                <div className='header__logo'>
+                    News App
+                </div>
+                <div className='header__search'>
+                    <form onSubmit={handleSubmit}>
+
+                        <input onChange={e => { setkeyword(e.target.value) }} type="text" placeholder="Search news by keywords"></input>
+                        <input type='submit' value='Go' className='header__searchButton'  ></input>
+                    </form>
+
+                </div>
+            </div>
+            <div>
+                <Select placeholder={<div>Country</div>} options={countries} onChange={(value) => {
+                    setcountry(value.value)
+                }} />
+                <Select placeholder={<div>Category</div>} options={categories} onChange={(value) => {
+                    setcategory(value.value)
+                }} />
+
+            </div>
+
+            {responseArray[0]?.map((news, index) => (
+                <NewsCard title={news.title} />
+
+            ))
+            }
+
+        </div >
+    )
+}
+
+export default News
