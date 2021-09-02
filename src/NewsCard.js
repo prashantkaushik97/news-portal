@@ -1,4 +1,4 @@
-import { Card } from '@material-ui/core';
+import { Card, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import React from 'react'
@@ -10,10 +10,10 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles({
     root: {
-        maxWidth: 800,
+        maxWidth: 500,
     },
     media: {
-        height: 140,
+        height: 240,
     },
 });
 function NewsCard({ title, description, author, urlToImage, publishedAt }) {
@@ -24,7 +24,7 @@ function NewsCard({ title, description, author, urlToImage, publishedAt }) {
             <CardActionArea>
                 <CardMedia
                     className={classes.media}
-                    image="/static/images/cards/contemplative-reptile.jpg"
+                    image={urlToImage}
                     title="Contemplative Reptile"
                 />
                 <CardContent>
@@ -32,15 +32,15 @@ function NewsCard({ title, description, author, urlToImage, publishedAt }) {
                         {title}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                        across all continents except Antarctica
+                        {description}
                     </Typography>
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary">
-                    Share
-                </Button>
+                <Typography variant="body2" color="textSecondary" component="p">
+                    {author}
+                </Typography>
+
                 <Button size="small" color="primary">
                     Learn More
                 </Button>

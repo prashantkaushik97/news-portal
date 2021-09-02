@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import NewsCard from './NewsCard'
 import Select from 'react-select'
+import { Grid } from '@material-ui/core';
 
 import './Style.css'
 function News() {
@@ -95,12 +96,24 @@ function News() {
                 }} />
 
             </div>
+            <div>
+                <Grid
+                    container
+                    spacing={2}
+                    direction="row"
+                    justify="flex-start"
+                    alignItems="flex-start"
+                >
+                    {responseArray[0]?.map((news, index) => (
+                        <Grid item xs={12} sm={6} md={3} key={index}>
+                            <NewsCard title={news.title} description={news.description} author={news.author} urlToImage={news.urlToImage} />
+                        </Grid>
 
-            {responseArray[0]?.map((news, index) => (
-                <NewsCard title={news.title} />
+                    ))
+                    }
+                </Grid>
+            </div>
 
-            ))
-            }
 
         </div >
     )
