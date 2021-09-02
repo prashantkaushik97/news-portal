@@ -60,7 +60,10 @@ function News() {
 
         axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}`).then((res) => {
             setresponseArray(responseArray => [...responseArray, res.data.articles])
-        })
+        }).catch(error => {
+            console.log(error)
+        }
+        )
     }, [category])
     useEffect(() => {
         setresponseArray([])
@@ -68,12 +71,14 @@ function News() {
         axios.get(`https://newsapi.org/v2/everything?q=${keyword}&apiKey=${apiKey}`).then((res) => {
             setresponseArray(responseArray => [...responseArray, res.data.articles])
 
-        })
+        }).catch(error => {
+            console.log(error)
+        }
+        )
     }, [flag])
     return (
 
         < div className="news" >
-            {console.log(responseArray)}
             <div className='header'>
                 <div className='header__logo'>
                     News App
